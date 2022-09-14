@@ -8,7 +8,27 @@ Authorization: Bearer {{jwt}}
 GET http://localhost:8080/games/1
 Authorization: Bearer {{jwt}}
 
+###
+
+// Create a new game
+POST http://localhost:8080/games/
+Authorization: Bearer {{jwt}}
+Content-Type: application/json
+
+{
+  "name": "World of Warcraft",
+  "categoryId": "e1eec954-6ef4-4926-8183-7575af189f2a"
+}
+
+###
+
 // Update one specific game
 PUT http://localhost:8080/games/1
+Authorization: Bearer {{jwt}}
+
+###
+
+// Delete one specific and existing game
+DELETE http://localhost:8080/games/1
 Authorization: Bearer {{jwt}}
 

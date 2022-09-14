@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -23,7 +24,7 @@ public class CategoryService {
         return repository.findAll();
     }
 
-    public Optional<CategoryEntity> loadOne(Long gameId) {
+    public Optional<CategoryEntity> loadOne(UUID gameId) {
         log.info("Executing find game with id " + gameId + " ...");
         return repository.findById(gameId);
     }
@@ -38,7 +39,7 @@ public class CategoryService {
         return repository.save(updatedGame);
     }
 
-    public void delete(Long gameId) {
+    public void delete(UUID gameId) {
         log.info("Executing delete game with id " + gameId + " ...");
         repository.deleteById(gameId);
     }

@@ -9,6 +9,7 @@ import io.viascom.springbootcrudexample.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/categories")
@@ -37,7 +38,7 @@ public class CategoryController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @GetMapping("/{id}")
-    CategoryEntity loadOne(@PathVariable Long id) {
+    CategoryEntity loadOne(@PathVariable UUID id) {
         return categoryService.loadOne(id)
                 .orElseThrow(() -> new GameNotFoundException("Category with id " + id + " not found!"));
     }
@@ -48,7 +49,7 @@ public class CategoryController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @PostMapping
-    CategoryEntity create(@RequestBody CategoryEntity entity, @PathVariable Long id) {
+    CategoryEntity create(@RequestBody CategoryEntity entity) {
         return categoryService.create(entity);
     }
 
@@ -58,7 +59,7 @@ public class CategoryController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @PutMapping("/{id}")
-    CategoryEntity update(@RequestBody CategoryEntity updatedEntity, @PathVariable Long id) {
+    CategoryEntity update(@RequestBody CategoryEntity updatedEntity, @PathVariable UUID id) {
         return categoryService.update(updatedEntity);
     }
 
@@ -68,7 +69,7 @@ public class CategoryController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Long id) {
+    void delete(@PathVariable UUID id) {
         categoryService.delete(id);
     }
 

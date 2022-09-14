@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS CATEGORY CASCADE;
 CREATE TABLE CATEGORY
 (
-    id   INT         NOT NULL,
+    id   UUID,
     name VARCHAR(50) NOT NULL,
 
     PRIMARY KEY (id)
@@ -10,9 +10,9 @@ CREATE TABLE CATEGORY
 DROP TABLE IF EXISTS GAME CASCADE;
 CREATE TABLE GAME
 (
-    id       INT         NOT NULL PRIMARY KEY,
+    id       UUID,
     name     VARCHAR(50) NOT NULL,
-    category INT         NOT NULL,
+    category UUID NOT NULL,
 
     PRIMARY KEY (id),
     FOREIGN KEY (category) REFERENCES CATEGORY (id)
@@ -21,7 +21,7 @@ CREATE TABLE GAME
 DROP TABLE IF EXISTS MEMBER CASCADE;
 CREATE TABLE MEMBER
 (
-    id            VARCHAR(36)   NOT NULL,
+    id            UUID,
     username      VARCHAR(2000) NOT NULL,
     password_hash VARCHAR(2000) NOT NULL,
     is_admin      BOOLEAN       NOT NULL DEFAULT FALSE,

@@ -5,10 +5,12 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.viascom.springbootcrudexample.exception.GameNotFoundException;
 import io.viascom.springbootcrudexample.model.GameEntity;
+import io.viascom.springbootcrudexample.service.CategoryService;
 import io.viascom.springbootcrudexample.service.GameService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/games")
@@ -16,9 +18,11 @@ import java.util.List;
 public class GameController {
 
     private final GameService gameService;
+    private final CategoryService categoryService;
 
-    GameController(GameService gameService) {
+    GameController(GameService gameService, CategoryService categoryService) {
         this.gameService = gameService;
+        this.categoryService = categoryService;
     }
 
     @Operation(
@@ -37,7 +41,7 @@ public class GameController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @GetMapping("/{id}")
-    GameEntity loadOne(@PathVariable Long id) {
+    GameEntity loadOne(@PathVariable UUID id) {
         return gameService.loadOne(id)
                 .orElseThrow(() -> new GameNotFoundException("Game with id " + id + " not found!"));
     }
@@ -48,7 +52,8 @@ public class GameController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @PostMapping
-    GameEntity create(@RequestBody GameEntity entity, @PathVariable Long id) {
+    GameEntity create(@RequestBody GameEntity entity) {
+        entity.setCategory(categoryService.loadOne(entity.getCategoryId()).orElseThrow());
         return gameService.create(entity);
     }
 
@@ -58,7 +63,7 @@ public class GameController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @PutMapping("/{id}")
-    GameEntity update(@RequestBody GameEntity updatedGameEntity, @PathVariable Long id) {
+    GameEntity update(@RequestBody GameEntity updatedGameEntity, @PathVariable UUID id) {
         return gameService.update(updatedGameEntity);
     }
 
@@ -68,7 +73,7 @@ public class GameController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Long id) {
+    void delete(@PathVariable UUID id) {
         gameService.delete(id);
     }
 

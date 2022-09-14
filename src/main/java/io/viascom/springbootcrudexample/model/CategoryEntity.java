@@ -5,13 +5,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -19,10 +19,13 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Entity(name = "CATEGORY")
 public class CategoryEntity implements Serializable {
+
     @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false, updatable = false)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id", updatable = false, nullable = false)
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    UUID id = UUID.randomUUID();
 
     @Column(name = "name", nullable = false)
     private String name;
