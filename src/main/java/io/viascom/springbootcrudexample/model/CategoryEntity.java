@@ -9,7 +9,6 @@ import org.hibernate.Hibernate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import java.util.Objects;
 
 @Getter
@@ -17,18 +16,15 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @Entity
-public class GameEntity {
+public class CategoryEntity {
     private @Id @GeneratedValue Long id;
     private String name;
-
-    @OneToOne(mappedBy = "id")
-    private CategoryEntity category;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        GameEntity gameEntity = (GameEntity) o;
+        CategoryEntity gameEntity = (CategoryEntity) o;
         return id != null && Objects.equals(id, gameEntity.id);
     }
 
