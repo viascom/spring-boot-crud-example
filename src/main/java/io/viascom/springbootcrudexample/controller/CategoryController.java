@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.viascom.springbootcrudexample.exception.GameNotFoundException;
 import io.viascom.springbootcrudexample.model.CategoryEntity;
 import io.viascom.springbootcrudexample.service.CategoryService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,6 +49,7 @@ public class CategoryController {
             description = "Creates a new category in database.",
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     CategoryEntity create(@RequestBody CategoryEntity entity) {
         return categoryService.create(entity);
@@ -58,6 +60,7 @@ public class CategoryController {
             description = "Updates one specific and existing category in database.",
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     CategoryEntity update(@RequestBody CategoryEntity updatedEntity, @PathVariable UUID id) {
         return categoryService.update(updatedEntity);
@@ -68,6 +71,7 @@ public class CategoryController {
             description = "Deletes one specific and existing category in database.",
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     void delete(@PathVariable UUID id) {
         categoryService.delete(id);

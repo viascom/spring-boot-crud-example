@@ -7,6 +7,7 @@ import io.viascom.springbootcrudexample.exception.GameNotFoundException;
 import io.viascom.springbootcrudexample.model.GameEntity;
 import io.viascom.springbootcrudexample.service.CategoryService;
 import io.viascom.springbootcrudexample.service.GameService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,6 +52,7 @@ public class GameController {
             description = "Creates a new game in database.",
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     GameEntity create(@RequestBody GameEntity entity) {
         entity.setCategory(categoryService.loadOne(entity.getCategoryId()).orElseThrow());
@@ -62,6 +64,7 @@ public class GameController {
             description = "Updates one specific and existing game in database.",
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     GameEntity update(@RequestBody GameEntity updatedGameEntity, @PathVariable UUID id) {
         return gameService.update(updatedGameEntity);
@@ -72,6 +75,7 @@ public class GameController {
             description = "Deletes one specific and existing game in database.",
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     void delete(@PathVariable UUID id) {
         gameService.delete(id);
