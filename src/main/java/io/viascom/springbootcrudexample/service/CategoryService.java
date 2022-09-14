@@ -1,7 +1,7 @@
 package io.viascom.springbootcrudexample.service;
 
-import io.viascom.springbootcrudexample.model.GameEntity;
-import io.viascom.springbootcrudexample.repository.GameRepository;
+import io.viascom.springbootcrudexample.model.CategoryEntity;
+import io.viascom.springbootcrudexample.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -10,25 +10,25 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class GameService {
+public class CategoryService {
 
-    private final GameRepository repository;
+    private final CategoryRepository repository;
 
-    GameService(GameRepository repository) {
+    CategoryService(CategoryRepository repository) {
         this.repository = repository;
     }
 
-    public List<GameEntity> loadAll() {
+    public List<CategoryEntity> loadAll() {
         log.info("Executing find all games ...");
         return repository.findAll();
     }
 
-    public Optional<GameEntity> loadOne(Long gameId) {
+    public Optional<CategoryEntity> loadOne(Long gameId) {
         log.info("Executing find game with id " + gameId + " ...");
         return repository.findById(gameId);
     }
 
-    public GameEntity update(GameEntity updatedGame) {
+    public CategoryEntity update(CategoryEntity updatedGame) {
         log.info("Executing update game with id " + updatedGame.getId() + " ...");
         return repository.save(updatedGame);
     }
