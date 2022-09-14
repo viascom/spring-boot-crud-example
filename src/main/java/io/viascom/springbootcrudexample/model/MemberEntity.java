@@ -1,6 +1,9 @@
 package io.viascom.springbootcrudexample.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -9,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -17,7 +21,7 @@ import java.util.UUID;
 @ToString
 @RequiredArgsConstructor
 @Entity(name = "MEMBER")
-public class MemberEntity {
+public class MemberEntity implements Serializable {
 
     @Id
     @GeneratedValue(generator = "UUID")
