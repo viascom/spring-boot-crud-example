@@ -16,7 +16,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Entity
+@Entity(name = "GAME")
 public class GameEntity {
     private @Id @GeneratedValue Long id;
     private String name;

@@ -15,7 +15,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Entity
+@Entity(name = "CATEGORY")
 public class CategoryEntity {
     private @Id @GeneratedValue Long id;
     private String name;
