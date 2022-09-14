@@ -1,6 +1,7 @@
 package io.viascom.springbootcrudexample.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.viascom.springbootcrudexample.exception.GameNotFoundException;
 import io.viascom.springbootcrudexample.model.GameEntity;
@@ -22,7 +23,8 @@ public class GameController {
 
     @Operation(
             summary = "Get all games",
-            description = "Loads all games from database."
+            description = "Loads all games from database.",
+            security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @GetMapping
     List<GameEntity> loadAllGames() {
@@ -31,7 +33,8 @@ public class GameController {
 
     @Operation(
             summary = "Get one specific game",
-            description = "Loads one specific game from database."
+            description = "Loads one specific game from database.",
+            security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @GetMapping("/{id}")
     GameEntity loadOneGame(@PathVariable Long id) {
@@ -41,7 +44,8 @@ public class GameController {
 
     @Operation(
             summary = "Update an existing game",
-            description = "Updates one specific and existing game in database."
+            description = "Updates one specific and existing game in database.",
+            security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @PutMapping("/{id}")
     GameEntity updateGame(@RequestBody GameEntity updatedGameEntity, @PathVariable Long id) {
@@ -50,7 +54,8 @@ public class GameController {
 
     @Operation(
             summary = "Delete an existing game",
-            description = "Deletes one specific and existing game in database."
+            description = "Deletes one specific and existing game in database.",
+            security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @DeleteMapping("/{id}")
     void deleteGame(@PathVariable Long id) {

@@ -1,6 +1,7 @@
 package io.viascom.springbootcrudexample.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.viascom.springbootcrudexample.exception.GameNotFoundException;
 import io.viascom.springbootcrudexample.model.CategoryEntity;
@@ -22,7 +23,8 @@ public class CategoryController {
 
     @Operation(
             summary = "Get all categories",
-            description = "Loads all categories from database."
+            description = "Loads all categories from database.",
+            security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @GetMapping
     List<CategoryEntity> loadAllCategories() {
@@ -31,7 +33,8 @@ public class CategoryController {
 
     @Operation(
             summary = "Get one specific category",
-            description = "Loads one specific category from database."
+            description = "Loads one specific category from database.",
+            security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @GetMapping("/{id}")
     CategoryEntity loadOneGame(@PathVariable Long id) {
@@ -41,7 +44,8 @@ public class CategoryController {
 
     @Operation(
             summary = "Update an existing category",
-            description = "Updates one specific and existing category in database."
+            description = "Updates one specific and existing category in database.",
+            security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @PutMapping("/{id}")
     CategoryEntity updateGame(@RequestBody CategoryEntity updatedEntity, @PathVariable Long id) {
@@ -50,7 +54,8 @@ public class CategoryController {
 
     @Operation(
             summary = "Delete an existing category",
-            description = "Deletes one specific and existing category in database."
+            description = "Deletes one specific and existing category in database.",
+            security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @DeleteMapping("/{id}")
     void deleteGame(@PathVariable Long id) {
