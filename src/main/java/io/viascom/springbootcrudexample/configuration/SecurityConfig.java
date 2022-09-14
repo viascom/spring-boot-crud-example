@@ -4,7 +4,6 @@ import io.viascom.springbootcrudexample.repository.MemberRepository;
 import io.viascom.springbootcrudexample.security.JwtAuthenticationEntryPoint;
 import io.viascom.springbootcrudexample.security.JwtAuthenticationFilter;
 import io.viascom.springbootcrudexample.security.JwtServiceHMAC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,13 +19,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    @Autowired
-    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    @Autowired
-    private JwtServiceHMAC jwtService;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtServiceHMAC jwtService;
+    private final MemberRepository memberRepository;
 
-    @Autowired
-    private MemberRepository memberRepository;
+    public SecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtServiceHMAC jwtService, MemberRepository memberRepository) {
+        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+        this.jwtService = jwtService;
+        this.memberRepository = memberRepository;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

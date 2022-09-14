@@ -49,7 +49,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             var optionalUser = memberRepository.findById(userId);
 
-            if(optionalUser.isEmpty()){
+            if (optionalUser.isEmpty()) {
                 throw new JWTVerificationException("Unauthorized");
             }
 

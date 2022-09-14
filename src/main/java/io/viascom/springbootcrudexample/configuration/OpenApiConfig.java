@@ -20,7 +20,7 @@ public class OpenApiConfig {
     }
 
     @Bean
-    public OpenAPI aleevaOpenAPI() {
+    public OpenAPI openAPI() {
         return new OpenAPI()
                 .info(new Info().title("CRUD API").version("v1.0.0"))
                 .components(new Components()
