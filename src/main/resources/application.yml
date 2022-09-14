@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:h2:file:/data/exampledb
-    driverClassName: rg.h2.Driver
+    driverClassName: org.h2.Driver
     username: admin
     password: password
   jpa:
