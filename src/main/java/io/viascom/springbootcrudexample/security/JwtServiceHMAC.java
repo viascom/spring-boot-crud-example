@@ -22,8 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,11 +55,11 @@ public class JwtServiceHMAC implements UserDetailsService {
 
     public ArrayList<String> getRequestedAuthorities(DecodedJWT decoded) {
         var rolesRaw = decoded.getClaim("roles").asList(String.class);
-        if(rolesRaw == null){
+        if (rolesRaw == null) {
             rolesRaw = new ArrayList<>();
         }
         var scopesRaw = decoded.getClaim("scope").asList(String.class);
-        if(scopesRaw == null){
+        if (scopesRaw == null) {
             scopesRaw = new ArrayList<>();
         }
 
@@ -105,7 +106,7 @@ public class JwtServiceHMAC implements UserDetailsService {
         }
     }
 
-    public String createNewJWT(String JWTId, String userId, String name, List<String> scopes) throws GeneralSecurityException, IOException {
+    public String createNewJWT(String JWTId, String userId, String name, List<String> scopes) {
         val now = LocalDateTime.now();
 
         val newJWT = JWT.create();
@@ -114,11 +115,32 @@ public class JwtServiceHMAC implements UserDetailsService {
         newJWT.withClaim("user_id", userId);
         newJWT.withClaim("typ", "Bearer");
         newJWT.withClaim("scope", scopes);
-        newJWT.withIssuedAt(now.toInstant(ZoneOffset.UTC));
-        newJWT.withExpiresAt(now.plusDays(1).toInstant(ZoneOffset.UTC));
+        newJWT.withIssuedAt(convertToDate(now));
+        newJWT.withExpiresAt(convertToDate(now.plusDays(1)));
 
         val algorithm = Algorithm.HMAC512(getSecret());
 
         return newJWT.sign(algorithm);
+    }
+
+    public String createNewJWTRefresh(String JWTId, String userId) {
+        val now = LocalDateTime.now();
+
+        val newJWT = JWT.create();
+        newJWT.withClaim("jti", JWTId);
+        newJWT.withClaim("typ", "Refresh");
+        newJWT.withClaim("user_id", userId);
+        newJWT.withIssuedAt(convertToDate(now));
+        newJWT.withExpiresAt(convertToDate(now.plusDays(14)));
+
+        val algorithm = Algorithm.HMAC512(getSecret());
+
+        return newJWT.sign(algorithm);
+    }
+
+    private Date convertToDate(LocalDateTime dateToConvert) {
+        return java.util.Date
+                .from(dateToConvert.atZone(ZoneId.systemDefault())
+                        .toInstant());
     }
 }

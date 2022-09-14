@@ -1,9 +1,6 @@
 package io.viascom.springbootcrudexample.model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -20,6 +17,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Entity(name = "MEMBER")
 public class MemberEntity implements Serializable {
 
@@ -30,12 +28,23 @@ public class MemberEntity implements Serializable {
     @Type(type = "org.hibernate.type.UUIDCharType")
     UUID id = UUID.randomUUID();
 
+    @Column(name = "username", nullable = false)
+    String username;
+
+    @Column(name = "password_hash", nullable = false)
+    String passwordHash;
+
+    @Column(name = "is_admin", nullable = false)
+    Boolean isAdmin = false;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         MemberEntity that = (MemberEntity) o;
-        return id != null && Objects.equals(id, that.id);
+        return id != null && Objects.equals(id, that.id) &&
+                username != null && Objects.equals(username, that.username) &&
+                passwordHash != null && Objects.equals(passwordHash, that.passwordHash);
     }
 
     @Override
