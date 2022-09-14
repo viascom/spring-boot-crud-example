@@ -9,7 +9,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 @Getter
@@ -21,7 +21,7 @@ public class GameEntity {
     private @Id @GeneratedValue Long id;
     private String name;
 
-    @OneToOne(mappedBy = "id")
+    @ManyToOne
     private CategoryEntity category;
 
     @Override

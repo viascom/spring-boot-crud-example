@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:file:/data/exampledb
+    url: jdbc:h2:file:/home/botscripter/Development/repos/spring-boot-crud-example/data/exampledb
     driverClassName: org.h2.Driver
     username: admin
     password: password
