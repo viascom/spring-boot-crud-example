@@ -27,7 +27,7 @@ public class GameController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @GetMapping
-    List<GameEntity> loadAllGames() {
+    List<GameEntity> loadAll() {
         return gameService.loadAll();
     }
 
@@ -37,9 +37,19 @@ public class GameController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @GetMapping("/{id}")
-    GameEntity loadOneGame(@PathVariable Long id) {
+    GameEntity loadOne(@PathVariable Long id) {
         return gameService.loadOne(id)
                 .orElseThrow(() -> new GameNotFoundException("Game with id " + id + " not found!"));
+    }
+
+    @Operation(
+            summary = "Create a new game",
+            description = "Creates a new game in database.",
+            security = {@SecurityRequirement(name = "JWT Auth")}
+    )
+    @PostMapping
+    GameEntity create(@RequestBody GameEntity entity, @PathVariable Long id) {
+        return gameService.create(entity);
     }
 
     @Operation(
@@ -48,7 +58,7 @@ public class GameController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @PutMapping("/{id}")
-    GameEntity updateGame(@RequestBody GameEntity updatedGameEntity, @PathVariable Long id) {
+    GameEntity update(@RequestBody GameEntity updatedGameEntity, @PathVariable Long id) {
         return gameService.update(updatedGameEntity);
     }
 
@@ -58,7 +68,7 @@ public class GameController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @DeleteMapping("/{id}")
-    void deleteGame(@PathVariable Long id) {
+    void delete(@PathVariable Long id) {
         gameService.delete(id);
     }
 

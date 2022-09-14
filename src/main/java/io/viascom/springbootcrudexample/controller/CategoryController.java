@@ -27,7 +27,7 @@ public class CategoryController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @GetMapping
-    List<CategoryEntity> loadAllCategories() {
+    List<CategoryEntity> loadAll() {
         return categoryService.loadAll();
     }
 
@@ -37,9 +37,19 @@ public class CategoryController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @GetMapping("/{id}")
-    CategoryEntity loadOneGame(@PathVariable Long id) {
+    CategoryEntity loadOne(@PathVariable Long id) {
         return categoryService.loadOne(id)
                 .orElseThrow(() -> new GameNotFoundException("Category with id " + id + " not found!"));
+    }
+
+    @Operation(
+            summary = "Create a new category",
+            description = "Creates a new category in database.",
+            security = {@SecurityRequirement(name = "JWT Auth")}
+    )
+    @PostMapping
+    CategoryEntity create(@RequestBody CategoryEntity entity, @PathVariable Long id) {
+        return categoryService.create(entity);
     }
 
     @Operation(
@@ -48,7 +58,7 @@ public class CategoryController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @PutMapping("/{id}")
-    CategoryEntity updateGame(@RequestBody CategoryEntity updatedEntity, @PathVariable Long id) {
+    CategoryEntity update(@RequestBody CategoryEntity updatedEntity, @PathVariable Long id) {
         return categoryService.update(updatedEntity);
     }
 
@@ -58,7 +68,7 @@ public class CategoryController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @DeleteMapping("/{id}")
-    void deleteGame(@PathVariable Long id) {
+    void delete(@PathVariable Long id) {
         categoryService.delete(id);
     }
 

@@ -28,6 +28,11 @@ public class CategoryService {
         return repository.findById(gameId);
     }
 
+    public CategoryEntity create(CategoryEntity category) {
+        log.info("Executing create category with id " + category.getId() + " ...");
+        return repository.save(category);
+    }
+
     public CategoryEntity update(CategoryEntity updatedGame) {
         log.info("Executing update game with id " + updatedGame.getId() + " ...");
         return repository.save(updatedGame);

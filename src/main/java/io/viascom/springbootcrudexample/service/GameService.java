@@ -28,6 +28,11 @@ public class GameService {
         return repository.findById(gameId);
     }
 
+    public GameEntity create(GameEntity game) {
+        log.info("Executing create game with id " + game.getId() + " ...");
+        return repository.save(game);
+    }
+
     public GameEntity update(GameEntity updatedGame) {
         log.info("Executing update game with id " + updatedGame.getId() + " ...");
         return repository.save(updatedGame);

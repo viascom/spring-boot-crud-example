@@ -1,3 +1,14 @@
 // Get all games
 GET http://localhost:8080/games
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjoiOTEzNWYxMmUtMWI2Ni00ZWU2LWJiYWUtZGYzNzMwM2NjMTU0IiwiaWF0IjoxNjYzMTQ4Njc0LCJleHAiOjE2NjMzNDg2NzQsImlzcyI6Imh0dHBzOi8vYXBpLmFsZWV2YS5pby9hdXRoIiwidHlwIjoiQmVhcmVyIn0.WFs8NcPeqdLf89unjx1cqPa5U0XYN6ecrDt6X2l1tCsdWNtUDxG5T6TeMMvumbqwZ9C0Z_djhYGdyHBzeKzCbg
+Authorization: Bearer {{jwt}}
+
+###
+
+// Get one specific game
+GET http://localhost:8080/games/1
+Authorization: Bearer {{jwt}}
+
+// Update one specific game
+PUT http://localhost:8080/games/1
+Authorization: Bearer {{jwt}}
+
