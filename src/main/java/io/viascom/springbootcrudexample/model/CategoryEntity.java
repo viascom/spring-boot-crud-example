@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,7 +18,12 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Entity(name = "CATEGORY")
 public class CategoryEntity {
-    private @Id @GeneratedValue Long id;
+    @Id
+    @GeneratedValue
+    @Column(name = "id", nullable = false, updatable = false)
+    private Long id;
+
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Override

@@ -6,10 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Getter
@@ -18,10 +15,16 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Entity(name = "GAME")
 public class GameEntity {
-    private @Id @GeneratedValue Long id;
+    @Id
+    @GeneratedValue
+    @Column(name = "id", nullable = false, updatable = false)
+    private  Long id;
+
+    @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "category", nullable = false)
     private CategoryEntity category;
 
     @Override
