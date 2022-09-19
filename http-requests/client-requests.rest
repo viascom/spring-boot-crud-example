@@ -5,7 +5,7 @@ Authorization: Bearer {{jwt}}
 ###
 
 // Get one specific game
-GET http://localhost:8080/games/1
+GET http://localhost:8080/games/413e2297-b84b-42ef-97ed-16a8a9d1d671
 Authorization: Bearer {{jwt}}
 
 ###
@@ -23,12 +23,17 @@ Content-Type: application/json
 ###
 
 // Update one specific game
-PUT http://localhost:8080/games/1
+PUT http://localhost:8080/games/413e2297-b84b-42ef-97ed-16a8a9d1d671
 Authorization: Bearer {{jwt}}
+
+{
+  "name": "World of Warcraft 2",
+  "categoryId": "e1eec954-6ef4-4926-8183-7575af189f2a"
+}
 
 ###
 
 // Delete one specific and existing game
-DELETE http://localhost:8080/games/1
+DELETE http://localhost:8080/games/413e2297-b84b-42ef-97ed-16a8a9d1d671
 Authorization: Bearer {{jwt}}
 
