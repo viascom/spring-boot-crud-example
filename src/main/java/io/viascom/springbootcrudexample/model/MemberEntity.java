@@ -2,6 +2,7 @@ package io.viascom.springbootcrudexample.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -19,6 +20,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Entity(name = "MEMBER")
+@DynamicUpdate
 public class MemberEntity implements Serializable {
 
     @Id

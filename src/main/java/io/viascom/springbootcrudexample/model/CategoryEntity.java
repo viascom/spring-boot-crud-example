@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -18,6 +19,7 @@ import java.util.UUID;
 @ToString
 @RequiredArgsConstructor
 @Entity(name = "CATEGORY")
+@DynamicUpdate
 public class CategoryEntity implements Serializable {
 
     @Id

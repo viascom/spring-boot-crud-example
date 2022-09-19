@@ -3,7 +3,6 @@ package io.viascom.springbootcrudexample.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.viascom.springbootcrudexample.exception.GameNotFoundException;
 import io.viascom.springbootcrudexample.model.CategoryEntity;
 import io.viascom.springbootcrudexample.service.CategoryService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,8 +39,7 @@ public class CategoryController {
     )
     @GetMapping("/{id}")
     CategoryEntity loadOne(@PathVariable UUID id) {
-        return categoryService.loadOne(id)
-                .orElseThrow(() -> new GameNotFoundException("Category with id " + id + " not found!"));
+        return categoryService.loadOne(id);
     }
 
     @Operation(

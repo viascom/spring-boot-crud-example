@@ -1,12 +1,13 @@
 package io.viascom.springbootcrudexample.service;
 
+import io.viascom.springbootcrudexample.exception.GameNotFoundException;
 import io.viascom.springbootcrudexample.model.CategoryEntity;
 import io.viascom.springbootcrudexample.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -20,13 +21,13 @@ public class CategoryService {
     }
 
     public List<CategoryEntity> loadAll() {
-        log.info("Executing find all games ...");
+        log.info("Executing find all categories ...");
         return repository.findAll();
     }
 
-    public Optional<CategoryEntity> loadOne(UUID gameId) {
-        log.info("Executing find game with id " + gameId + " ...");
-        return repository.findById(gameId);
+    public CategoryEntity loadOne(UUID categoryId) {
+        log.info("Executing find category with id " + categoryId + " ...");
+        return repository.findById(categoryId).orElseThrow(() -> new GameNotFoundException("Category not found with id " + categoryId));
     }
 
     public CategoryEntity create(CategoryEntity category) {
@@ -34,14 +35,17 @@ public class CategoryService {
         return repository.save(category);
     }
 
-    public CategoryEntity update(CategoryEntity updatedGame) {
-        log.info("Executing update game with id " + updatedGame.getId() + " ...");
-        return repository.save(updatedGame);
+    public CategoryEntity update(CategoryEntity updatedCategory) {
+        log.info("Executing update category with id " + updatedCategory.getId() + " ...");
+        val categoryId = updatedCategory.getId();
+        repository.findById(categoryId).orElseThrow(() -> new GameNotFoundException("Category not found with id " + categoryId));
+        return repository.save(updatedCategory);
     }
 
-    public void delete(UUID gameId) {
-        log.info("Executing delete game with id " + gameId + " ...");
-        repository.deleteById(gameId);
+    public void delete(UUID categoryId) {
+        log.info("Executing delete category with id " + categoryId + " ...");
+        repository.findById(categoryId).orElseThrow(() -> new GameNotFoundException("Category not found with id " + categoryId));
+        repository.deleteById(categoryId);
     }
 
 }

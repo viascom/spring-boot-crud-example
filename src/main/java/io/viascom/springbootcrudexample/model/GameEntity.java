@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -20,6 +21,7 @@ import java.util.UUID;
 @ToString
 @RequiredArgsConstructor
 @Entity(name = "GAME")
+@DynamicUpdate
 public class GameEntity implements Serializable {
 
     @Id
