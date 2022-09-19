@@ -31,13 +31,18 @@ public class GameController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @GetMapping
-    List<GameEntity> loadAll() {
+    List<GameEntity> loadAll(@RequestParam(value = "name", required = false) String gameName) {
+
+        if(gameName != null) {
+            return gameService.loadAllByName(gameName);
+        }
+
         return gameService.loadAll();
     }
 
     @Operation(
-            summary = "Get one specific game",
-            description = "Loads one specific game from database.",
+            summary = "Get one specific game by id",
+            description = "Loads one specific game by id from database.",
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @GetMapping("/{id}")

@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface GameRepository extends CrudRepository<GameEntity, UUID> {
     List<GameEntity> findAll();
+    List<GameEntity> findAllByName(String name);
 }

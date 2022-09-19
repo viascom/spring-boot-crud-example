@@ -28,7 +28,12 @@ public class CategoryController {
             security = {@SecurityRequirement(name = "JWT Auth")}
     )
     @GetMapping
-    List<CategoryEntity> loadAll() {
+    List<CategoryEntity> loadAll(@RequestParam(value = "name", required = false) String categoryName) {
+
+        if(categoryName != null) {
+            return categoryService.loadAllByName(categoryName);
+        }
+
         return categoryService.loadAll();
     }
 

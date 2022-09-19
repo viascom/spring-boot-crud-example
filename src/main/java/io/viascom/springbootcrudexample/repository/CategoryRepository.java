@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface CategoryRepository extends CrudRepository<CategoryEntity, UUID> {
     List<CategoryEntity> findAll();
+    List<CategoryEntity> findAllByName(String name);
 }
