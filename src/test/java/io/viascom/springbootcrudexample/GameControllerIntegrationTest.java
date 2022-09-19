@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,7 +34,7 @@ public class GameControllerIntegrationTest {
 
     @Test
     public void allGamesShouldBeReturnedFromService() throws Exception {
-        val accessToken = jwtService.createNewJWT(UUID.randomUUID().toString(), "9135f12e-1b66-4ee6-bbae-df37303cc154", "admin", new ArrayList<String>());
+        val accessToken = jwtService.createNewJWT(UUID.randomUUID().toString(), "9135f12e-1b66-4ee6-bbae-df37303cc154", "admin", List.of("ADMIN"));
 
         val response = mockMvc.perform(get("/games").header("Authorization", "Bearer " + accessToken))
                 .andExpect(status().isOk())
