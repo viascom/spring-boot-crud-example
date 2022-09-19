@@ -1,6 +1,6 @@
 package io.viascom.springbootcrudexample.service;
 
-import io.viascom.springbootcrudexample.exception.GameNotFoundException;
+import io.viascom.springbootcrudexample.exception.CategoryNotFoundException;
 import io.viascom.springbootcrudexample.model.CategoryEntity;
 import io.viascom.springbootcrudexample.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class CategoryService {
 
     public CategoryEntity loadOne(UUID categoryId) {
         log.info("Executing find category with id " + categoryId + " ...");
-        return repository.findById(categoryId).orElseThrow(() -> new GameNotFoundException("Category not found with id " + categoryId));
+        return repository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found with id " + categoryId));
     }
 
     public CategoryEntity create(CategoryEntity category) {
@@ -38,13 +38,13 @@ public class CategoryService {
     public CategoryEntity update(CategoryEntity updatedCategory) {
         log.info("Executing update category with id " + updatedCategory.getId() + " ...");
         val categoryId = updatedCategory.getId();
-        repository.findById(categoryId).orElseThrow(() -> new GameNotFoundException("Category not found with id " + categoryId));
+        repository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found with id " + categoryId));
         return repository.save(updatedCategory);
     }
 
     public void delete(UUID categoryId) {
         log.info("Executing delete category with id " + categoryId + " ...");
-        repository.findById(categoryId).orElseThrow(() -> new GameNotFoundException("Category not found with id " + categoryId));
+        repository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("Category not found with id " + categoryId));
         repository.deleteById(categoryId);
     }
 
